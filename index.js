@@ -49,6 +49,20 @@ app.get("/ktp/status", async (request, response, next) => {
   }
 });
 
+app.put("/ktp/status/:nik", async (request, response, next) => {
+  try {
+    await sequelize.query(
+      `UPDATE tb_status_ktp SET tb_status_ktp.status_pengambilan = 'Sudah' WHERE tb_status_ktp.nik = ${request.params.nik}`
+    );
+    return response.status(200);
+  } catch (error) {
+    console.log(error);
+    return response.status(500).json({
+      message: "Terjadi Kesalahan"
+    });
+  }
+});
+
 app.get("/kk/status", async (request, response, next) => {
   try {
     const [result] = await sequelize.query(
@@ -64,6 +78,20 @@ app.get("/kk/status", async (request, response, next) => {
     );
 
     return response.status(200).json({ message: respon[0].respon });
+  } catch (error) {
+    console.log(error);
+    return response.status(500).json({
+      message: "Terjadi Kesalahan"
+    });
+  }
+});
+
+app.put("/kk/status/:nik", async (request, response, next) => {
+  try {
+    await sequelize.query(
+      `UPDATE tb_status_kk SET tb_status_kk.status_pengambilan = 'Sudah' WHERE tb_status_kk.nik_kpl = ${request.params.nik}`
+    );
+    return response.status(200);
   } catch (error) {
     console.log(error);
     return response.status(500).json({
