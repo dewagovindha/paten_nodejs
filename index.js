@@ -12,7 +12,7 @@ const PORT = process.env.PORT;
 app.use(express.json());
 
 app.get("/start", (request, response, next) => {
-  const hour = new Date().getHours();
+  const hour = new Date().getUTCHours() + 8;
 
   return response.status(200).json({
     waktu:
